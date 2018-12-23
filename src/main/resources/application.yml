@@ -51,10 +51,17 @@ spring:
         max-wait: 5s
 
 
+  datasource:
+    schema: classpath:schema-mysql.sql
+    schema-username: root
+    schema-password: wangyang
+    initialization-mode: never
+    url: jdbc:mysql://118.24.0.221:3306/shard_1
+    driver-class-name: com.mysql.jdbc.Driver
+
 mybatis-plus:
   mapper-locations: classpath*:mybatis/*.xml
   type-aliases-package: com.dave.sharding.entity
   check-config-location: false
   configuration:
     map-underscore-to-camel-case: true
-

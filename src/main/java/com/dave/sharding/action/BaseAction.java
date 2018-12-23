@@ -16,5 +16,11 @@ public class BaseAction {
         return new ResponseEntity<Map<String, Object>>(result,httpStatus);
     }
 
+    ResponseEntity<Map<String,Object>> getExceptionMap(String message,HttpStatus httpStatus){
+        Map<String,Object> result=new HashMap<>(2);
+        result.put("case",message);
+        return new ResponseEntity<Map<String, Object>>(result,httpStatus);
+    }
+
 
 }
