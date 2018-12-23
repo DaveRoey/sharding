@@ -1,6 +1,8 @@
 package com.dave.sharding.custom.route;
 
 import com.dave.sharding.custom.algorithm.PartitionByMurmurHash;
+import com.dave.sharding.custom.utils.MurmurHashUtils;
+import com.dave.sharding.mapper.EmpMapper;
 import io.shardingsphere.api.algorithm.sharding.PreciseShardingValue;
 import io.shardingsphere.api.algorithm.sharding.standard.PreciseShardingAlgorithm;
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 
 /**
@@ -15,11 +18,7 @@ import java.util.Collection;
  * Describes
  * @author Dave
  */
-@Component
 public class CommonDataBaseStrategy implements PreciseShardingAlgorithm<String> {
-    @Autowired
-    private PartitionByMurmurHash murmurHash;
-
 
     private final Logger log= LoggerFactory.getLogger(CommonDataBaseStrategy.class);
 
@@ -28,8 +27,7 @@ public class CommonDataBaseStrategy implements PreciseShardingAlgorithm<String> 
         log.info("collection:{},shardingValue:{}",collection,preciseShardingValue);
 
         String value=preciseShardingValue.getValue();
-        Integer suffix = murmurHash.calculate(value);
-
+        Integer suffix = MurmurHashUtils.getMurmurHash().calculate(value);
         for (String strategy : collection) {
 
             if(strategy.endsWith(String.valueOf(suffix))){

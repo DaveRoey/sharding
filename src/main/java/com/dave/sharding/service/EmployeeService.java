@@ -1,7 +1,10 @@
 package com.dave.sharding.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dave.sharding.entity.Employee;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,5 +19,9 @@ public interface EmployeeService {
 
     Employee findEmployeeById(Long empId);
 
-    Employee findEmployeeByCode(String  code);
+    Employee findEmployeeByIdAndCode(long id,String  code);
+
+    Employee findEmpByCode(String code);
+
+    IPage<Employee> selectPageByVo(Page<Employee> page, Date createTime);
 }

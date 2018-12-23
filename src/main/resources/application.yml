@@ -19,23 +19,42 @@ sharding:
         tables:
           employee:
             actual-data-nodes: ds$->{0..1}.employee_$->{0..1}
-        default-database-strategy:
-          inline:
-            sharding-column: id
-            algorithm-expression: employee_$->{id % 2}
-        default-table-strategy:
-          standard:
-            sharding-column: code
-            precise-algorithm-class-name: com.dave.sharding.custom.route.CommonDataBaseStrategy
-
+            database-strategy:
+              inline:
+                  sharding-column: id
+                  algorithm-expression: ds$->{id % 2}
+            table-strategy:
+              standard:
+                  sharding-column: code
+                  precise-algorithm-class-name: com.dave.sharding.custom.route.CommonDataBaseStrategy
 
 #分表算法节点
 murmur:
   node: 2
+
 server:
-  port: 8080
+  port:
+  tomcat:
+    max-threads: 1000
+
 spring:
   main:
     allow-bean-definition-overriding: true
   jpa:
     show-sql: true
+  redis:
+    host: 47.105.146.39
+    jedis:
+      pool:
+        max-active: 200
+        max-idle: 10
+        max-wait: 5s
+
+
+mybatis-plus:
+  mapper-locations: classpath*:mybatis/*.xml
+  type-aliases-package: com.dave.sharding.entity
+  check-config-location: false
+  configuration:
+    map-underscore-to-camel-case: true
+

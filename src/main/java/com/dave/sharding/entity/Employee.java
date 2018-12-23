@@ -12,34 +12,10 @@ import java.util.Date;
  * Describes
  */
 
-@Entity(name = "employee")
+@Data
 public class Employee {
-    @Id
     private Long id;
     private String code;
     private Date createTime;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }
