@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dave.sharding.custom.route.CommonDataBaseStrategy;
 import com.dave.sharding.custom.utils.MurmurHashUtils;
+import com.dave.sharding.dao.EmpRepository;
 import com.dave.sharding.entity.Employee;
 import com.dave.sharding.mapper.EmpMapper;
 import org.junit.Assert;
@@ -32,6 +33,8 @@ public class EmployeeServiceImplTest {
 
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private EmpRepository empRepository;
 
     @Test
     public void addEmployee() {
@@ -64,9 +67,38 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void selectPageByVo() {
-        Page<Employee> page=new Page<>();
+        Page<Employee> page = new Page<>();
         page.setSize(10);
         IPage<Employee> employeeIPage = empMapper.selectPageVo(page, new Date());
-        System.out.println("size:"+employeeIPage.getRecords().size());
+        System.out.println("size:" + employeeIPage.getRecords().size());
     }
+
+
+    @Test
+    public void getEmpsFromEsByCode() {
+        String code = "13";
+        List<Employee> employees = empRepository.findEmployeesByCode(code);
+        Assert.assertEquals(3, employees.size());
+
+    }
+
+    @Test
+    public void writeTest() {
+
+        ArrayList<Employee> employees = new ArrayList<>();
+        LongStream.range(20000, 25000)
+                .forEach(e -> {
+                    Employee employee = new Employee();
+                    employee.setId(e);
+                    employee.setCode(e * e + "");
+                    employee.setCreateTime(new Date());
+                    employees.add(employee);
+
+                });
+
+        empRepository.saveAll(employees);
+
+    }
+
+
 }

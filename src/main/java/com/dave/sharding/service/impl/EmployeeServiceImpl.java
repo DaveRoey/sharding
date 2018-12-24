@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dave.sharding.dao.EmpRepository;
 import com.dave.sharding.entity.Employee;
 import com.dave.sharding.mapper.EmpMapper;
 import com.dave.sharding.service.EmployeeService;
@@ -27,6 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmpMapper empMapper;
+
+    @Autowired
+    private EmpRepository empRepository;
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
@@ -73,5 +77,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public IPage<Employee> selectPageByVo(Page<Employee> page, Date createTime) {
         return empMapper.selectPageVo(page, createTime);
+    }
+
+    @Override
+    public List<Employee> getEmpsFromEsByCode(String code) {
+
+        return empRepository.findEmployeesByCode(code);
+
     }
 }

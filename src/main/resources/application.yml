@@ -58,6 +58,12 @@ spring:
     initialization-mode: never
     url: jdbc:mysql://118.24.0.221:3306/shard_1
     driver-class-name: com.mysql.jdbc.Driver
+  data:
+    elasticsearch:
+      cluster-name: docker-cluster
+      cluster-nodes: 47.105.146.39:9300
+      repositories:
+        enabled: true
 
 mybatis-plus:
   mapper-locations: classpath*:mybatis/*.xml

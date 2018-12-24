@@ -62,10 +62,18 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.0.6</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+		<!--ES-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+
+
 
 
 	</dependencies>

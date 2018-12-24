@@ -24,4 +24,6 @@ public interface EmployeeService {
     Employee findEmpByCode(String code);
 
     IPage<Employee> selectPageByVo(Page<Employee> page, Date createTime);
+
+    List<Employee> getEmpsFromEsByCode(String code);
 }
